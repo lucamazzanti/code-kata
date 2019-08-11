@@ -23,14 +23,38 @@ namespace CodeKata.GameOfLife
         public void Tick()
         {
             var livingNeighbours = Neighbours.Where(i => i != null && i.Live).Count();
-            if (livingNeighbours < 2)
+
+            if (this.Live)
             {
-                this.Live = false;
+                if (IsUnderPopulated(livingNeighbours))
+                {
+                    this.Live = false;
+                }
+                else if (IsOverPopulated(livingNeighbours))
+                {
+                    this.Live = false;
+                }
             }
-            else if(livingNeighbours > 3)
+            else
             {
-                this.Live = false;
-            }        
+                if(IsPerfectlyPopulated(livingNeighbours))
+                {
+                    this.Live = true;
+                }
+            }
+        }
+
+        private bool IsPerfectlyPopulated(int livingNeighbours)
+        {
+            return livingNeighbours == 3;
+        }
+        private bool IsUnderPopulated(int livingNeighbours)
+        {
+            return livingNeighbours < 2;
+        }
+        private bool IsOverPopulated(int livingNeighbours)
+        {
+            return livingNeighbours > 3;
         }
     }
 }

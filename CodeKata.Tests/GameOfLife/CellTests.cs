@@ -52,5 +52,18 @@ namespace Tests
 
             Assert.IsFalse(cell.Live);
         }
+
+        [Test]
+        [TestCase(new byte[] { 1, 1, 1, 0, 0, 0, 0, 0 })]
+        [Description("Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.")]
+        public void Given_DeadCell_When_Populated_Then_Lives(byte[] neighboursStatus)
+        {
+            var neighbours = neighboursStatus.Select(i => new Cell(Convert.ToBoolean(i))).ToArray();
+            var cell = new Cell(false, neighbours);
+
+            cell.Tick();
+
+            Assert.IsTrue(cell.Live);
+        }
     }
 }
