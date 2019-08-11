@@ -53,5 +53,19 @@ namespace CodeKata.Tests.GameOfLife
                 new LifeSystem(default(string));
             });
         }
+
+        [Test]
+        [TestCase("000 000 000", "000 000 000")]
+        [TestCase("000 010 000", "000 000 000")]
+        [TestCase("000 111 000", "010 010 010")]
+        [TestCase("010 111 010", "111 000 111")]
+        public void Given_System_When_Tick_Then_Apply(string startingSeed, string expectedSeed)
+        {
+            var system = new LifeSystem(startingSeed);
+
+            system.Tick();
+
+            Assert.AreEqual(expectedSeed, system.ToString());        
+        }
     }
 }

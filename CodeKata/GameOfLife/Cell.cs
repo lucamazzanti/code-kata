@@ -7,41 +7,35 @@ namespace CodeKata.GameOfLife
 {
     public class Cell
     {
-        public Cell(bool live, Cell[] neighbours = null)
+        public Cell(bool live)
         {
             Live = live;
-            if (neighbours != null)
-            {
-                Neighbours = neighbours;
-            }
         }
-
-        public Cell[] Neighbours { get; set; } = new Cell[8];
 
         public bool Live { get; set; }
 
-        public void Tick()
+        public bool GetNextGeneration(int livingNeighbours)
         {
-            var livingNeighbours = Neighbours.Where(i => i != null && i.Live).Count();
-
             if (this.Live)
             {
                 if (IsUnderPopulated(livingNeighbours))
                 {
-                    this.Live = false;
+                    return false;
                 }
                 else if (IsOverPopulated(livingNeighbours))
                 {
-                    this.Live = false;
+                    return false;
                 }
             }
             else
             {
-                if(IsPerfectlyPopulated(livingNeighbours))
+                if (IsPerfectlyPopulated(livingNeighbours))
                 {
-                    this.Live = true;
+                    return true;
                 }
             }
+
+            return this.Live;
         }
 
         private bool IsPerfectlyPopulated(int livingNeighbours)
@@ -55,6 +49,11 @@ namespace CodeKata.GameOfLife
         private bool IsOverPopulated(int livingNeighbours)
         {
             return livingNeighbours > 3;
+        }
+
+        public override string ToString()
+        {
+            return Convert.ToByte(this.Live).ToString();
         }
     }
 }

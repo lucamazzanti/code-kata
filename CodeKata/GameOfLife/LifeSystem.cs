@@ -7,6 +7,8 @@ namespace CodeKata.GameOfLife
 {
     public class LifeSystem
     {
+        private readonly Cell OutOfBoundCell = new Cell(false);
+
         public LifeSystem(string seed) : this(GetData(seed))
         {
         }
@@ -40,7 +42,6 @@ namespace CodeKata.GameOfLife
                             break;
                         default:
                             throw new FormatException();
-                            break;
                     }
                 }
                 resultList.Add(resultRow.ToArray());
@@ -80,5 +81,78 @@ namespace CodeKata.GameOfLife
         }
 
         public Cell[,] Cells { get; private set; }
+
+        public void Tick()
+        {
+            this.Cells = GetNextGeneration();
+        }
+
+        public Cell[,] GetNextGeneration()
+        {
+            var width = Cells.GetLength(0);
+            var heigth = Cells.GetLength(1);
+
+            var cells = new Cell[width, heigth];
+
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < heigth; j++)
+                {
+                    var cell = Cells[i, j];
+                    var neighbours = GetNeighbours(i,j);
+                    cells[i,j] = GetNextGeneration(cell, neighbours);
+                }
+            }
+
+            return cells;
+        }
+
+        private Cell GetNextGeneration(Cell cell, Cell[] neighbours)
+        {
+            var livingNeighbours = neighbours.Where(i => i != null && i.Live).Count();
+
+            return new Cell(cell.GetNextGeneration(livingNeighbours));
+        }
+
+        private Cell[] GetNeighbours(int i, int j)
+        {
+            return new Cell[]
+            {
+                GetCellOrDefault(i-1,j-1),
+                GetCellOrDefault(i-1,j),
+                GetCellOrDefault(i-1,j+1),
+                GetCellOrDefault(i,j-1),
+                GetCellOrDefault(i,j+1),
+                GetCellOrDefault(i+1,j-1),
+                GetCellOrDefault(i+1,j),
+                GetCellOrDefault(i+1,j+1),
+            };
+        }
+
+        private Cell GetCellOrDefault(int i, int j)
+        {
+            if (i < 0 || i >= this.Cells.GetLength(0) || j < 0 || j >= this.Cells.GetLength(1))
+                return OutOfBoundCell;
+            return this.Cells[i, j];
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            for (int i = 0; i < Cells.GetLength(0); i++)
+            {
+                for (int j = 0; j < Cells.GetLength(1); j++)
+                {
+                    sb.Append(Convert.ToByte(Cells[i, j].Live));
+                }
+
+                sb.Append(" ");
+            }
+
+            var result = sb.ToString();
+            if (!string.IsNullOrWhiteSpace(result))
+                result = result.Substring(0, result.Length - 1);
+            return result;
+        }
     }
 }
