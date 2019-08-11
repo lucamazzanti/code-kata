@@ -25,5 +25,19 @@ namespace Tests
 
             Assert.IsFalse(cell.Live);
         }
+
+        [Test]
+        [TestCase(new byte[] { 1, 1, 0, 0, 0, 0, 0, 0 })]
+        [TestCase(new byte[] { 1, 1, 1, 0, 0, 0, 0, 0 })]
+        [Description("Any live cell with two or three live neighbours lives on to the next generation")]
+        public void Given_LiveCell_When_Grouped_Then_Lives(byte[] neighboursStatus)
+        {
+            var neighbours = neighboursStatus.Select(i => new Cell(Convert.ToBoolean(i))).ToArray();
+            var cell = new Cell(true, neighbours);
+
+            cell.Tick();
+
+            Assert.IsTrue(cell.Live);
+        }
     }
 }
