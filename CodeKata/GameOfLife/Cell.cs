@@ -22,10 +22,15 @@ namespace CodeKata.GameOfLife
 
         public void Tick()
         {
-            if (Neighbours.Where(i => i != null && i.Live).Count() < 2)
+            var livingNeighbours = Neighbours.Where(i => i != null && i.Live).Count();
+            if (livingNeighbours < 2)
             {
                 this.Live = false;
-            }    
+            }
+            else if(livingNeighbours > 3)
+            {
+                this.Live = false;
+            }        
         }
     }
 }
