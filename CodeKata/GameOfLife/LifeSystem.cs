@@ -7,17 +7,64 @@ namespace CodeKata.GameOfLife
 {
     public class LifeSystem
     {
-        public LifeSystem(byte[,] seed)
+        public LifeSystem(string seed) : this(GetData(seed))
         {
-            Cells = GetCells(seed);
         }
 
-        private Cell[,] GetCells(byte[,] seed)
+        public LifeSystem(byte[,] matrix)
         {
-            if (seed == null) throw new ArgumentNullException(nameof(seed));
+            Cells = GetCells(matrix);
+        }
 
-            var width = seed.GetLength(0);
-            var heigth = seed.GetLength(1);
+        private static byte[,] GetData(string seed)
+        {
+            if (string.IsNullOrWhiteSpace(seed)) throw new ArgumentNullException(nameof(seed));
+
+            int? rowLength = null;
+            var resultList = new List<byte[]>();
+            foreach (var row in seed.Split(" "))
+            {
+                if (rowLength.HasValue && row.Length != rowLength.Value) throw new FormatException();
+                if (!rowLength.HasValue) rowLength = row.Length;
+
+                var resultRow = new List<byte>();
+                foreach (var item in row.ToCharArray())
+                {
+                    switch (item)
+                    {
+                        case '0':
+                            resultRow.Add(0);
+                            break;
+                        case '1':
+                            resultRow.Add(1);
+                            break;
+                        default:
+                            throw new FormatException();
+                            break;
+                    }
+                }
+                resultList.Add(resultRow.ToArray());
+            }
+
+            var result = new byte[resultList.Count, resultList[0].Length];
+
+            for (int i = 0; i < resultList.Count; i++)
+            {
+                for (int j = 0; j < resultList[0].Length; j++)
+                {
+                    result[i, j] = resultList[i][j];
+                }
+            }
+
+            return result;
+        }
+
+        private Cell[,] GetCells(byte[,] matrix)
+        {
+            if (matrix == null) throw new ArgumentNullException(nameof(matrix));
+
+            var width = matrix.GetLength(0);
+            var heigth = matrix.GetLength(1);
 
             var cells = new Cell[width, heigth];
 
@@ -25,7 +72,7 @@ namespace CodeKata.GameOfLife
             {
                 for (int j = 0; j < heigth; j++)
                 {
-                    cells[i, j] = new Cell(Convert.ToBoolean(seed[i, j]));
+                    cells[i, j] = new Cell(Convert.ToBoolean(matrix[i, j]));
                 }
             }
 
