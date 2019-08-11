@@ -57,8 +57,9 @@ namespace CodeKata.Tests.GameOfLife
         [Test]
         [TestCase("000 000 000", "000 000 000")]
         [TestCase("000 010 000", "000 000 000")]
-        [TestCase("000 111 000", "010 010 010")]
+        [TestCase("000 111 000", "010 010 010")] //oscillator: blinker
         [TestCase("010 111 010", "111 101 111")]
+        [TestCase("000000 011000 011000 000110 000110 000000", "000000 011000 010000 000010 000110 000000")] //oscillator: beacon
         public void Given_System_When_Tick_Then_Apply(string startingSeed, string expectedSeed)
         {
             var system = new LifeSystem(startingSeed);
