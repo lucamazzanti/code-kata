@@ -3,7 +3,7 @@ using NUnit.Framework;
 using System;
 using System.Linq;
 
-namespace Tests
+namespace CodeKata.Tests.GameOfLife
 {
     public class CellTests
     {
