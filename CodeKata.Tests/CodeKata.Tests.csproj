@@ -16,8 +16,4 @@
     <ProjectReference Include="..\CodeKata\CodeKata.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Wardrobe\" />
-  </ItemGroup>
-
 </Project>
