@@ -7,7 +7,7 @@ namespace CodeKata.Wardrobe
 {
     public class Wardrobe
     {
-        public uint[][] Customize(uint roomSize, uint[] elements)
+        public uint[][] GetCombinations(uint roomSize, uint[] elements)
         {
             if (roomSize == 0) throw new ArgumentException("roomSize must be greater than 0.", nameof(roomSize));
             if (elements == null) throw new ArgumentNullException(nameof(elements));
@@ -33,6 +33,25 @@ namespace CodeKata.Wardrobe
                 convertedResults.Add(convertedResult.ToArray());
             }
             return convertedResults.ToArray();
+        }
+
+        public uint[] GetCheaperCombination(uint roomSize, uint[] elements, uint[] prices)
+        {
+            var combinations = this.GetCombinations(roomSize, elements);
+
+            var combinationsWithPrice = new List<Tuple<uint[], uint>>();
+            foreach (var combination in combinations)
+            {
+                uint price = 0;
+                foreach (var item in combination)
+                {
+                    var itemIndex = Array.IndexOf(elements, item);
+                    price += prices[itemIndex];
+                }
+                combinationsWithPrice.Add(new Tuple<uint[], uint>(combination, price));
+            }
+
+            return combinationsWithPrice.OrderBy(i => i.Item2).Take(1).FirstOrDefault()?.Item1;
         }
     }
 }

@@ -9,72 +9,72 @@ namespace CodeKata.Tests.Wardrobe
     public class WardrobeTests
     {
         [Test]
-        public void Customize_InexistentRoomSize_ThrowsArgumentException()
+        public void GetCombinations_InexistentRoomSize_ThrowsArgumentException()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
             Assert.Throws<ArgumentException>(() =>
             {
-                wardrobe.Customize(0, null);
+                wardrobe.GetCombinations(0, null);
             });
         }
 
         [Test]
-        public void Customize_InexistentElement_ThrowsArgumentException()
+        public void GetCombinations_InexistentElement_ThrowsArgumentException()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
             Assert.Throws<ArgumentException>(() =>
             {
-                wardrobe.Customize(1, new uint[] { 0 });
+                wardrobe.GetCombinations(1, new uint[] { 0 });
             });
         }
 
         [Test]
-        public void Customize_NullElementsArray_ThrowsArgumentNullException()
+        public void GetCombinations_NullElementsArray_ThrowsArgumentNullException()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
             Assert.Throws<ArgumentNullException>(() =>
             {
-                wardrobe.Customize(1, null);
+                wardrobe.GetCombinations(1, null);
             });
         }
 
         [Test]
-        public void Customize_NoElementThatFit_ReturnsEmpty()
+        public void GetCombinations_NoElementThatFit_ReturnsEmpty()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var result = wardrobe.Customize(1, new uint[] { 2 });
+            var result = wardrobe.GetCombinations(1, new uint[] { 2 });
             CollectionAssert.AreEqual(new uint[][] { }, result);
         }
 
         [Test]
-        public void Customize_SingleElementThatFit_ReturnsThatCombination()
+        public void GetCombinations_SingleElementThatFit_ReturnsThatCombination()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var result = wardrobe.Customize(1, new uint[] { 1 });
+            var result = wardrobe.GetCombinations(1, new uint[] { 1 });
             CollectionAssert.AreEqual(new uint[][] { new uint[] { 1 } }, result);
         }
 
         [Test]
-        public void Customize_TwoElementsThatFit_ReturnsTwoCombination()
+        public void GetCombinations_TwoElementsThatFit_ReturnsTwoCombination()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var results = wardrobe.Customize(2, new uint[] { 1, 2 });
+            var results = wardrobe.GetCombinations(2, new uint[] { 1, 2 });
             CollectionAssert.AreEqual(new uint[][] { new uint[] { 2 }, new uint[] { 1, 1 } }, results);
         }
 
         [Test]
-        public void Customize_TwoElementsThatFitOnlyTogheter_ReturnsOneCombination()
+        public void GetCombinations_TwoElementsThatFitOnlyTogheter_ReturnsOneCombination()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var results = wardrobe.Customize(5, new uint[] { 2, 3 });
+            var results = wardrobe.GetCombinations(5, new uint[] { 2, 3 });
             CollectionAssert.AreEqual(new uint[][] { new uint[] { 3, 2 } }, results);
         }
 
         [Test]
-        public void Customize_MoreElements_ReturnsMultipleCombination()
+        public void GetCombinations_MoreElements_ReturnsMultipleCombination()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var results = wardrobe.Customize(5, new uint[] { 1, 2, 3 });
+            var results = wardrobe.GetCombinations(5, new uint[] { 1, 2, 3 });
             CollectionAssert.AreEqual(new uint[][] {
                 new uint[] { 3, 2 },
                 new uint[] { 3, 1, 1 },
@@ -84,16 +84,24 @@ namespace CodeKata.Tests.Wardrobe
         }
 
         [Test]
-        public void Wardrobe_CodeKataUseCase()
+        public void GetCombinations_CodeKataUseCase()
         {
             var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var results = wardrobe.Customize(250, new uint[] { 50, 75, 100, 120 });
+            var results = wardrobe.GetCombinations(250, new uint[] { 50, 75, 100, 120 });
             CollectionAssert.AreEqual(new uint[][] {
                 new uint[] { 100, 100, 50 },
                 new uint[] { 100, 75, 75 },
                 new uint[] { 100, 50, 50, 50 },
                 new uint[] { 75, 75, 50, 50 },
                 new uint[] { 50, 50, 50, 50, 50 } }, results);
+        }
+
+        [Test]
+        public void GetCheaperCombination()
+        {
+            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
+            var result = wardrobe.GetCheaperCombination(250, new uint[] { 50, 75, 100, 120 }, new uint[] { 59, 62, 90, 111 });
+            CollectionAssert.AreEqual(new uint[] { 100, 75, 75 }, result);
         }
     }
 }
