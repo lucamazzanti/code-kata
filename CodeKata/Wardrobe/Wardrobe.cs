@@ -7,15 +7,20 @@ namespace CodeKata.Wardrobe
 {
     public class Wardrobe
     {
-        public int[][] Customize(int size, int[] elements)
+        public uint[][] Customize(uint roomSize, uint[] elements)
         {
-            var results = new List<int[]>();
+            if (roomSize == 0) throw new ArgumentException("roomSize must be greater than 0.", nameof(roomSize));
+            if (elements == null) throw new ArgumentNullException(nameof(elements));
+            if (elements.Length == 0) throw new ArgumentException("elements must contain at least one item.", nameof(elements));
+            if (elements.Any(i => i == 0)) throw new ArgumentException("every elements item must be greater than 0.", nameof(elements));
+
+            var results = new List<uint[]>();
             foreach (var item in elements)
             {
-                if(size % item == 0)
+                if(roomSize % item == 0)
                 {
-                    var result = new List<int>();
-                    var times = size / item;
+                    var result = new List<uint>();
+                    var times = roomSize / item;
                     for (int i = 0; i < times; i++)
                     {
                         result.Add(item);
