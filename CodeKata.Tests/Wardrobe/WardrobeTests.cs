@@ -82,5 +82,18 @@ namespace CodeKata.Tests.Wardrobe
                 new uint[] { 2, 1, 1, 1 },
                 new uint[] { 1, 1, 1, 1, 1 } }, results);
         }
+
+        [Test]
+        public void Wardrobe_CodeKataUseCase()
+        {
+            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
+            var results = wardrobe.Customize(250, new uint[] { 50, 75, 100, 120 });
+            CollectionAssert.AreEqual(new uint[][] {
+                new uint[] { 100, 100, 50 },
+                new uint[] { 100, 75, 75 },
+                new uint[] { 100, 50, 50, 50 },
+                new uint[] { 75, 75, 50, 50 },
+                new uint[] { 50, 50, 50, 50, 50 } }, results);
+        }
     }
 }
