@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CodeKata.Tests.Wardrobe
@@ -61,7 +62,25 @@ namespace CodeKata.Tests.Wardrobe
             CollectionAssert.AreEqual(new uint[][] { new uint[] { 2 }, new uint[] { 1, 1 } }, results);
         }
 
+        [Test]
+        public void Customize_TwoElementsThatFitOnlyTogheter_ReturnsOneCombination()
+        {
+            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
+            var results = wardrobe.Customize(5, new uint[] { 2, 3 });
+            CollectionAssert.AreEqual(new uint[][] { new uint[] { 3, 2 } }, results);
+        }
 
-
+        [Test]
+        public void Customize_MoreElements_ReturnsMultipleCombination()
+        {
+            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
+            var results = wardrobe.Customize(5, new uint[] { 1, 2, 3 });
+            CollectionAssert.AreEqual(new uint[][] {
+                new uint[] { 3, 2 },
+                new uint[] { 3, 1, 1 },
+                new uint[] { 2, 2, 1 },
+                new uint[] { 2, 1, 1, 1 },
+                new uint[] { 1, 1, 1, 1, 1 } }, results);
+        }
     }
 }

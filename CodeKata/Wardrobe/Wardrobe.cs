@@ -14,21 +14,25 @@ namespace CodeKata.Wardrobe
             if (elements.Length == 0) throw new ArgumentException("elements must contain at least one item.", nameof(elements));
             if (elements.Any(i => i == 0)) throw new ArgumentException("every elements item must be greater than 0.", nameof(elements));
 
-            var results = new List<uint[]>();
-            foreach (var item in elements)
+            var results = Algorithms.SubsetSums.SubsetSums
+                .AllSumsUnordered((int)roomSize, elements.Select(i => (int)i).ToArray());
+
+            return ConvertToUintResult(results);
+        }
+
+        private static uint[][] ConvertToUintResult(int[][] results)
+        {
+            var convertedResults = new List<uint[]>();
+            foreach (var result in results)
             {
-                if(roomSize % item == 0)
+                var convertedResult = new List<uint>();
+                foreach (var item in result)
                 {
-                    var result = new List<uint>();
-                    var times = roomSize / item;
-                    for (int i = 0; i < times; i++)
-                    {
-                        result.Add(item);
-                    }
-                    results.Add(result.ToArray());
+                    convertedResult.Add((uint)item);
                 }
+                convertedResults.Add(convertedResult.ToArray());
             }
-            return results.OrderBy(i => i.Length).ToArray();
+            return convertedResults.ToArray();
         }
     }
 }
