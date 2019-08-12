@@ -43,26 +43,22 @@ namespace CodeKata.Algorithms.SubsetSums
             return result;
         }
 
-        public interface IValue
+        public static T[][] AllSumsUnordered<T>(int total, T[] items, Func<T, int> getValueCallback)
         {
-            int GetValue();
+            return AllSumsUnordered<T>(total, items, getValueCallback, new T[] { }, new T[][] { });
         }
 
-        public static T[][] AllSumsUnordered<T>(int total, T[] items) where T : IValue
-        {
-            return AllSumsUnordered<T>(total, items, new T[] { }, new T[][] { });
-        }
-
-        private static T[][] AllSumsUnordered<T>(int total, T[] items, T[] row, T[][] result) where T : IValue
+        private static T[][] AllSumsUnordered<T>(int total, T[] items, Func<T,int> getValueCallback, T[] row, T[][] result)
         {
             if (total == 0) result = result.Concat(new T[][] { row }).ToArray();
             if (total <= 0) return result;
 
-            foreach (var item in items.OrderByDescending(i => i.GetValue()))
-                result = AllSumsUnordered(
-                    total - item.GetValue(),
-                    items.Where(i => i.GetValue() <= item.GetValue()).ToArray(),
-                    row.Concat(new T[] { item }).ToArray(),
+            foreach (var item in items.OrderByDescending(i => getValueCallback(i)))
+                result = AllSumsUnordered<T>(
+                    total - getValueCallback(item),
+                    items.Where(i => getValueCallback(i) <= getValueCallback(item)).ToArray(),
+                    getValueCallback,
+                    row.Concat(new[] { item }).ToArray(),
                     result);
 
             return result;

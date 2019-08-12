@@ -1,8 +1,6 @@
 ﻿using CodeKata.Algorithms.SubsetSums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CodeKata.Wardrobe
 {
@@ -16,7 +14,7 @@ namespace CodeKata.Wardrobe
             if (elements.Any(i => i == null)) throw new ArgumentException("every elements item must be not null.", nameof(elements));
             if (elements.Any(i => i.SizeInCm == 0)) throw new ArgumentException("every elements item must be greater than 0.", nameof(elements));
 
-            return SubsetSums.AllSumsUnordered((int)size, elements);
+            return SubsetSums.AllSumsUnordered((int)size, elements, i => (int) i.SizeInCm);
         }
 
         public WardrobeElement[] GetCheaperCombination(uint roomSize, WardrobeElement[] elements)

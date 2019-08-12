@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CodeKata.Wardrobe
 {
-    public class WardrobeElement : Algorithms.SubsetSums.SubsetSums.IValue
+    public class WardrobeElement
     {
         public WardrobeElement(uint sizeInCm, decimal priceInDollars = 0m)
         {
@@ -17,11 +17,6 @@ namespace CodeKata.Wardrobe
         public uint SizeInCm { get; private set; }
 
         public decimal PriceInDollars { get; private set; }
-
-        public int GetValue()
-        {
-            return (int) SizeInCm;
-        }
 
         public override bool Equals(object obj)
         {
