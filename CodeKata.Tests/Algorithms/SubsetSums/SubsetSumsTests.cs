@@ -7,6 +7,7 @@ namespace CodeKata.Tests.Algorithms.SubsetSums
 {
     public class SubsetSumsTests
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2211:I campi non costanti non devono essere visibili", Justification = "<In sospeso>")]
         public static object[] UseCases = new object[]
         {
             new object[] { 1, new int[] { 1 }, new int[][] {
@@ -29,7 +30,7 @@ namespace CodeKata.Tests.Algorithms.SubsetSums
         [TestCaseSource(nameof(UseCases))]
         public void AllSumsUnordered_UseCases(int sum, int[] numbers, int[][] expectedResult)
         {
-            var result = CodeKata.Algorithms.SubsetSums.SubsetSums.AllSumsUnordered(sum, numbers);
+            var result = CodeKata.Algorithms.SubsetSums.AllSumsUnordered(sum, numbers);
             CollectionAssert.AreEquivalent(expectedResult, result);
         }
     }

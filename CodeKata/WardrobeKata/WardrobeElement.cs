@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CodeKata.Wardrobe
+namespace CodeKata.WardrobeKata
 {
     public class WardrobeElement
     {
         public WardrobeElement(uint sizeInCm, decimal priceInDollars = 0m)
         {
+#pragma warning disable CA1303 // Non passare valori letterali come parametri localizzati
             if (sizeInCm == 0) throw new ArgumentException("Element size must be greater than 0.", nameof(sizeInCm));
+#pragma warning restore CA1303 // Non passare valori letterali come parametri localizzati
 
             SizeInCm = sizeInCm;
             PriceInDollars = priceInDollars;

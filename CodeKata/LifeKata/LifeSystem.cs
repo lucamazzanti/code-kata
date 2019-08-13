@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace CodeKata.GameOfLife
+namespace CodeKata.LifeKata
 {
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1814:Preferire matrici di matrici rispetto a matrici multidimensionali", Justification = "<In sospeso>")]
+
     public class LifeSystem
     {
         private readonly Cell OutOfBoundCell = new Cell(false);
@@ -80,6 +82,7 @@ namespace CodeKata.GameOfLife
             return cells;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1819:Le proprietà non devono restituire matrici", Justification = "<In sospeso>")]
         public Cell[,] Cells { get; private set; }
 
         public void Tick()
@@ -99,15 +102,15 @@ namespace CodeKata.GameOfLife
                 for (int j = 0; j < heigth; j++)
                 {
                     var cell = Cells[i, j];
-                    var neighbours = GetNeighbours(i,j);
-                    cells[i,j] = GetNextGeneration(cell, neighbours);
+                    var neighbours = GetNeighbours(i, j);
+                    cells[i, j] = GetNextGeneration(cell, neighbours);
                 }
             }
 
             return cells;
         }
 
-        private Cell GetNextGeneration(Cell cell, Cell[] neighbours)
+        private static Cell GetNextGeneration(Cell cell, Cell[] neighbours)
         {
             var livingNeighbours = neighbours.Where(i => i != null && i.Live).Count();
 

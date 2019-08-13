@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CodeKata.Algorithms.SubsetSums
+namespace CodeKata.Algorithms
 {
-    public class SubsetSums
+    public static class SubsetSums
     {
         public static int[][] AllSums(int total, int[] items)
         {
-            return AllSums(total, items, new int[] { }, new int[][] { });
+            return AllSums(total, items, Array.Empty<int>(), Array.Empty<int[]>());
         }
 
         private static int[][] AllSums(int total, int[] items, int[] row, int[][] result)
@@ -25,7 +25,7 @@ namespace CodeKata.Algorithms.SubsetSums
 
         public static int[][] AllSumsUnordered(int total, int[] items)
         {
-            return AllSumsUnordered(total, items, new int[] { }, new int[][] { });
+            return AllSumsUnordered(total, items, Array.Empty<int>(), Array.Empty<int[]>());
         }
 
         private static int[][] AllSumsUnordered(int total, int[] items, int[] row, int[][] result)
@@ -45,7 +45,7 @@ namespace CodeKata.Algorithms.SubsetSums
 
         public static T[][] AllSumsUnordered<T>(int total, T[] items, Func<T, int> getValueCallback)
         {
-            return AllSumsUnordered<T>(total, items, getValueCallback, new T[] { }, new T[][] { });
+            return AllSumsUnordered<T>(total, items, getValueCallback, Array.Empty<T>(), Array.Empty<T[]>());
         }
 
         private static T[][] AllSumsUnordered<T>(int total, T[] items, Func<T,int> getValueCallback, T[] row, T[][] result)

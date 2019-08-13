@@ -1,57 +1,49 @@
-﻿using CodeKata.Wardrobe;
+﻿using CodeKata.WardrobeKata;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace CodeKata.Tests.Wardrobe
+namespace CodeKata.Tests.WardrobeKata
 {
     public class WardrobeTests
     {
         [Test]
         public void GetCombinations_InexistentRoomSize_ThrowsArgumentException()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
             Assert.Throws<ArgumentException>(() =>
             {
-                wardrobe.GetCombinations(0, null);
+                Wardrobe.GetCombinations(0, null);
             });
         }
 
         [Test]
         public void GetCombinations_InexistentElement_ThrowsArgumentException()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
             Assert.Throws<ArgumentException>(() =>
             {
-                wardrobe.GetCombinations(1, new WardrobeElement[] { new WardrobeElement(0) });
+                Wardrobe.GetCombinations(1, new WardrobeElement[] { new WardrobeElement(0) });
             });
         }
 
         [Test]
         public void GetCombinations_NullElementsArray_ThrowsArgumentNullException()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
             Assert.Throws<ArgumentNullException>(() =>
             {
-                wardrobe.GetCombinations(1, null);
+                Wardrobe.GetCombinations(1, null);
             });
         }
 
         [Test]
         public void GetCombinations_NoElementThatFit_ReturnsEmpty()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var result = wardrobe.GetCombinations(1, new[] { new WardrobeElement(2) });
-            CollectionAssert.AreEqual(new WardrobeElement[][] { }, result);
+            var result = Wardrobe.GetCombinations(1, new[] { new WardrobeElement(2) });
+            CollectionAssert.AreEqual(Array.Empty<WardrobeElement[]>(), result);
         }
 
         [Test]
         public void GetCombinations_SingleElementThatFit_ReturnsThatCombination()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var result = wardrobe.GetCombinations(1, new[] {
+            var result = Wardrobe.GetCombinations(1, new[] {
                 new WardrobeElement(1)
             });
             CollectionAssert.AreEqual(new WardrobeElement[][] {
@@ -62,8 +54,7 @@ namespace CodeKata.Tests.Wardrobe
         [Test]
         public void GetCombinations_TwoElementsThatFit_ReturnsTwoCombination()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var results = wardrobe.GetCombinations(2, new [] {
+            var results = Wardrobe.GetCombinations(2, new [] {
                 new WardrobeElement(1),
                 new WardrobeElement(2)
             });
@@ -76,8 +67,7 @@ namespace CodeKata.Tests.Wardrobe
         [Test]
         public void GetCombinations_TwoElementsThatFitOnlyTogheter_ReturnsOneCombination()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var results = wardrobe.GetCombinations(5, new [] {
+            var results = Wardrobe.GetCombinations(5, new [] {
                 new WardrobeElement(3),
                 new WardrobeElement(2)
             });
@@ -89,8 +79,7 @@ namespace CodeKata.Tests.Wardrobe
         [Test]
         public void GetCombinations_MoreElements_ReturnsMultipleCombination()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var results = wardrobe.GetCombinations(5, new [] {
+            var results = Wardrobe.GetCombinations(5, new [] {
                 new WardrobeElement(1),
                 new WardrobeElement(2),
                 new WardrobeElement(3)
@@ -106,8 +95,7 @@ namespace CodeKata.Tests.Wardrobe
         [Test]
         public void GetCombinations_CodeKataUseCase()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var results = wardrobe.GetCombinations(250, new [] {
+            var results = Wardrobe.GetCombinations(250, new [] {
                 new WardrobeElement(50),
                 new WardrobeElement(75),
                 new WardrobeElement(100),
@@ -123,8 +111,7 @@ namespace CodeKata.Tests.Wardrobe
         [Test]
         public void GetCheaperCombination()
         {
-            var wardrobe = new CodeKata.Wardrobe.Wardrobe();
-            var result = wardrobe.GetCheaperCombination(250, new[] {
+            var result = Wardrobe.GetCheaperCombination(250, new[] {
                 new WardrobeElement(50,59),
                 new WardrobeElement(75,62),
                 new WardrobeElement(100,90),

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CodeKata.GameOfLife
+namespace CodeKata.LifeKata
 {
     public class Cell
     {
@@ -38,22 +38,24 @@ namespace CodeKata.GameOfLife
             return this.Live;
         }
 
-        private bool IsPerfectlyPopulated(int livingNeighbours)
+        private static bool IsPerfectlyPopulated(int livingNeighbours)
         {
             return livingNeighbours == 3;
         }
-        private bool IsUnderPopulated(int livingNeighbours)
+        private static bool IsUnderPopulated(int livingNeighbours)
         {
             return livingNeighbours < 2;
         }
-        private bool IsOverPopulated(int livingNeighbours)
+        private static bool IsOverPopulated(int livingNeighbours)
         {
             return livingNeighbours > 3;
         }
 
         public override string ToString()
         {
-            return Convert.ToByte(this.Live).ToString();
+#pragma warning disable CA1305 // Specificare IFormatProvider
+            return Convert.ToByte(Live).ToString();
+#pragma warning restore CA1305 // Specificare IFormatProvider
         }
     }
 }

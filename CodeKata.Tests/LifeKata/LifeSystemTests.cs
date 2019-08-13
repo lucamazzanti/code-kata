@@ -1,11 +1,8 @@
-﻿using CodeKata.GameOfLife;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
+using CodeKata.LifeKata;
 
-namespace CodeKata.Tests.GameOfLife
+namespace CodeKata.Tests.LifeKata
 {
     public class LifeSystemTests
     {

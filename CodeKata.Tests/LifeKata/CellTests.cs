@@ -1,9 +1,7 @@
-using CodeKata.GameOfLife;
 using NUnit.Framework;
-using System;
-using System.Linq;
+using CodeKata.LifeKata;
 
-namespace CodeKata.Tests.GameOfLife
+namespace CodeKata.Tests.LifeKata
 {
     public class CellTests
     {
