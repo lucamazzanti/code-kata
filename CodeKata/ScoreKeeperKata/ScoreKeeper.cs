@@ -4,14 +4,20 @@ using System.Text;
 
 namespace CodeKata.ScoreKeeperKata
 {
-    public class ScoreKeeper
-    { 
+    public class ScoreKeeper : IScoreKeeper
+    {
+        public ScoreKeeper(int teamAScore = 0, int teamBScore = 0)
+        {
+            TeamAScore = teamAScore;
+            TeamBScore = teamBScore;
+        }
+
         public int TeamAScore { get; private set; }
         public int TeamBScore { get; private set; }
 
         public string GetScore()
         {
-            return "000:000";
+            return $"{TeamAScore:000}:{TeamAScore:000}";
         }
 
         public void ScoreTeamA1()
